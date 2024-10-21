@@ -4,6 +4,8 @@ let reverseDirection = null;
 
 // Function to establish WebSocket connection based on user input
 function connectToROS(ipAddress) {
+    console.log(`Attempting to connect to ROS2 server at ws://${ipAddress}:9090`);
+    
     ros = new ROSLIB.Ros({
         url: `ws://${ipAddress}:9090`
     });
@@ -43,6 +45,11 @@ function connectToROS(ipAddress) {
 
 // Function to handle publishing bool messages to a given topic
 function publishMessage(topic, value) {
+    if (!topic) {
+        console.error('Topic is not defined.');
+        return;
+    }
+
     var msg = new ROSLIB.Message({
         data: value
     });
@@ -52,24 +59,29 @@ function publishMessage(topic, value) {
 
 // Handle Start button press and release events
 document.getElementById('start-button').addEventListener('mousedown', function() {
+    console.log('Start button pressed.');
     publishMessage(forwardDirection, true);
 });
 document.getElementById('start-button').addEventListener('mouseup', function() {
+    console.log('Start button released.');
     publishMessage(forwardDirection, false);
 });
 
 // Handle Stop button press and release events
 document.getElementById('stop-button').addEventListener('mousedown', function() {
+    console.log('Stop button pressed.');
     publishMessage(reverseDirection, true);
 });
 document.getElementById('stop-button').addEventListener('mouseup', function() {
+    console.log('Stop button released.');
     publishMessage(reverseDirection, false);
 });
 
 // Connect button event listener
 document.getElementById('connect-button').addEventListener('click', function() {
-    const ipAddress = document.getElementById('ip-input').value;
+    const ipAddress = document.getElementById('ip-input').value.trim();
     if (ipAddress) {
+        console.log(`Connecting to IP address: ${ipAddress}`);
         connectToROS(ipAddress);
     } else {
         alert('Please enter a valid IP address.');
