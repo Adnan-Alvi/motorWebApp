@@ -1,20 +1,42 @@
-// Connect to the ROS2 WebSocket server
-var ros = new ROSLIB.Ros({
-    url: 'ws://<your-ros2-ip>:9090'  // Replace with the IP address of your ROS2 system
-});
+let ros = null;  // Declare the ROS connection as a global variable
+let forwardDirection = null;
+let reverseDirection = null;
 
-// Create ROS topics for forward and reverse direction
-var forwardDirection = new ROSLIB.Topic({
-    ros: ros,
-    name: '/forward_direction',
-    messageType: 'std_msgs/Bool'
-});
+// Function to establish WebSocket connection based on user input
+function connectToROS(ipAddress) {
+    ros = new ROSLIB.Ros({
+        url: `ws://${ipAddress}:9090`
+    });
 
-var reverseDirection = new ROSLIB.Topic({
-    ros: ros,
-    name: '/reverse_direction',
-    messageType: 'std_msgs/Bool'
-});
+    // Create ROS topics for forward and reverse direction
+    forwardDirection = new ROSLIB.Topic({
+        ros: ros,
+        name: '/forward_direction',
+        messageType: 'std_msgs/Bool'
+    });
+
+    reverseDirection = new ROSLIB.Topic({
+        ros: ros,
+        name: '/reverse_direction',
+        messageType: 'std_msgs/Bool'
+    });
+
+    // Enable buttons after connection is established
+    ros.on('connection', function() {
+        console.log('Connected to ROS2 server.');
+        document.getElementById('start-button').disabled = false;
+        document.getElementById('stop-button').disabled = false;
+    });
+
+    ros.on('error', function(error) {
+        console.error('Error connecting to ROS2:', error);
+        alert('Failed to connect to ROS2. Check the IP address and try again.');
+    });
+
+    ros.on('close', function() {
+        console.log('Connection to ROS2 closed.');
+    });
+}
 
 // Function to handle publishing bool messages to a given topic
 function publishMessage(topic, value) {
@@ -38,4 +60,14 @@ document.getElementById('stop-button').addEventListener('mousedown', function() 
 });
 document.getElementById('stop-button').addEventListener('mouseup', function() {
     publishMessage(reverseDirection, false);
+});
+
+// Connect button event listener
+document.getElementById('connect-button').addEventListener('click', function() {
+    const ipAddress = document.getElementById('ip-input').value;
+    if (ipAddress) {
+        connectToROS(ipAddress);
+    } else {
+        alert('Please enter a valid IP address.');
+    }
 });
