@@ -1,34 +1,65 @@
-/* Basic styling for the page */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin-top: 100px;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Styling the buttons */
+h1 {
+    color: #333;
+}
+
+label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+input {
+    padding: 5px;
+    font-size: 1em;
+    width: 200px;
+}
+
 button {
-    padding: 15px 30px;
-    font-size: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
     margin: 10px;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
 .start {
-    background-color: green;
+    background-color: #4CAF50; /* Green */
     color: white;
+}
+
+.start:hover {
+    background-color: #45a049;
 }
 
 .start:active {
-    background-color: darkgreen;
+    background-color: #3e8e41;
+    transform: scale(0.95);  /* Shrink slightly to show it's pressed */
 }
 
 .stop {
-    background-color: red;
+    background-color: #f44336; /* Red */
     color: white;
 }
 
+.stop:hover {
+    background-color: #e53935;
+}
+
 .stop:active {
-    background-color: darkred;
+    background-color: #c62828;
+    transform: scale(0.95);  /* Shrink slightly to show it's pressed */
+}
+
+button:disabled {
+    background-color: #ccc; /* Grey */
+    cursor: not-allowed;
 }
