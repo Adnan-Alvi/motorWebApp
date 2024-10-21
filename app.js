@@ -7,7 +7,7 @@ function connectToROS(ipAddress) {
     console.log(`Attempting to connect to ROS2 server at ws://${ipAddress}:9090`);
     
     ros = new ROSLIB.Ros({
-        url: `ws://${ipAddress}:9090`
+        url: `wss://${ipAddress}:9090`
     });
 
     // Create ROS topics for forward and reverse direction
