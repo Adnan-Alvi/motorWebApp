@@ -9,9 +9,15 @@
 <body>
     <h1>Motor Control Interface</h1>
 
-    <!-- Buttons for controlling the motor -->
-    <button id="start-button" class="start">Start</button>
-    <button id="stop-button" class="stop">Stop</button>
+    <!-- IP address input -->
+    <label for="ip-input">Enter ROS2 IP Address:</label>
+    <input type="text" id="ip-input" placeholder="192.168.1.4">
+    <button id="connect-button">Connect</button>
+
+    <!-- Buttons for controlling the motor, initially disabled -->
+    <br>
+    <button id="start-button" class="start" disabled>Start</button>
+    <button id="stop-button" class="stop" disabled>Stop</button>
 
     <!-- ROSLIB.js library for WebSocket communication -->
     <script src="https://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
