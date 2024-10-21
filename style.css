@@ -1,0 +1,34 @@
+/* Basic styling for the page */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+}
+
+/* Styling the buttons */
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.start {
+    background-color: green;
+    color: white;
+}
+
+.start:active {
+    background-color: darkgreen;
+}
+
+.stop {
+    background-color: red;
+    color: white;
+}
+
+.stop:active {
+    background-color: darkred;
+}
