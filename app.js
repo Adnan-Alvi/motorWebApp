@@ -26,6 +26,7 @@ function connectToROS(ipAddress) {
         console.log('Connected to ROS2 server.');
         document.getElementById('start-button').disabled = false;
         document.getElementById('stop-button').disabled = false;
+        alert('Connected successfully!'); // Optional alert for confirmation
     });
 
     ros.on('error', function(error) {
@@ -35,6 +36,8 @@ function connectToROS(ipAddress) {
 
     ros.on('close', function() {
         console.log('Connection to ROS2 closed.');
+        document.getElementById('start-button').disabled = true;
+        document.getElementById('stop-button').disabled = true;
     });
 }
 
@@ -43,6 +46,7 @@ function publishMessage(topic, value) {
     var msg = new ROSLIB.Message({
         data: value
     });
+    console.log(`Publishing ${value} to ${topic.name}`);
     topic.publish(msg);
 }
 
